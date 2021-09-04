@@ -21,13 +21,16 @@ app.get('/', (req, res) => {
     res.send('Hello to Memories API');
 });
 
+process.env.CONNECTION_URL = 'mongodb+srv://databaseuser:12341234@cluster0.npy6j.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+process.env.PORT = 5000
+
 const PORT = process.env.PORT;
 
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useFindAndModify: true })
     .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
     .catch((error) => console.log(error.message));
 
-console.log('work here 06');
+console.log('work here 06 :' + process.env.CONNECTION_URL + ' : ' + PORT);
 
 mongoose.set('useFindAndModify', false);
 

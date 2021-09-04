@@ -26,14 +26,26 @@ export const signin = async (req, res) => {
 export const signup = async (req, res) => {
     const { email, password, confirmPassword, firstName, lastName } = req.body;
 
+    console.log(email + ' : ' + firstName);
+
     try {
+
+        console.log('test 01');
+
         const existingUser = await User.findOne({ email });
+
+        console.log('test 02');
 
         if(!existingUser) return res.status(400).json({ message: 'User already exist.'});
 
+        console.log('test 03');
+
         if(password !== confirmPassword) return res.status(400).json({ message: "Passwords don't match." });
 
+        console.log('test 04');
         const hashedPassword = await bcrypt.has(password, 12);
+
+        console.log('sdfdfsdfsdffsd');
 
         const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
 
