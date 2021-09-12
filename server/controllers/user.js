@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs";
+import bcrypt from 'bcryptjs';
 import jwt from "jsonwebtoken";
 
 import User from '../models/user.js';
@@ -30,22 +30,13 @@ export const signup = async (req, res) => {
 
     try {
 
-        console.log('test 01');
-
         const existingUser = await User.findOne({ email });
 
-        console.log('test 02');
-
-        if(!existingUser) return res.status(400).json({ message: 'User already exist.'});
-
-        console.log('test 03');
+        if(existingUser) return res.status(400).json({ message: 'User already exist.'});
 
         if(password !== confirmPassword) return res.status(400).json({ message: "Passwords don't match." });
 
-        console.log('test 04');
-        const hashedPassword = await bcrypt.has(password, 12);
-
-        console.log('sdfdfsdfsdffsd');
+        const hashedPassword = await bcrypt.hash(password, 12);
 
         const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
 
