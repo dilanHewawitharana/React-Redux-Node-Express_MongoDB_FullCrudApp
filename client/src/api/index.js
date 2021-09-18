@@ -4,6 +4,12 @@ const API = axios.create({ baseURL: 'http://localhost:5000'})
 
 // const url = "https://test-memory-app.herokuapp.com/posts";
 
+// API.interceptors.request.use((req) => {
+//     if(localStorage.getItem('profile')) {
+//         req.headers.Authorization
+//     }
+// })
+
 export const fetchPost = () => API.get('/posts');
 export const createPost = (newPost) => API.post('/posts', newPost);
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
